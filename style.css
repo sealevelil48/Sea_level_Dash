@@ -1,0 +1,274 @@
+/* ========== BASE LAYOUT ========== */
+.dash-flex-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* MAIN CONTENT CONTAINER */
+.flex-grow-1.g-3 {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping at all times */
+    flex: 1;
+    min-width: 0; /* Fix flexbox overflow issues */
+}
+
+/* ========== COLUMNS ========== */
+/* Filters Column */
+.filters-column {
+    flex: 0 0 25%; /* Don't grow, don't shrink, 25% width */
+    max-width: 350px; /* Maximum width */
+    min-width: 280px; /* Minimum width */
+    overflow-y: auto;
+    z-index: 10; /* Ensure it stays above content */
+}
+
+/* Content Column */
+.content-column {
+    flex: 1; /* Take remaining space */
+    min-width: 500px; /* Minimum width before horizontal scroll */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Graph Container */
+#graph-container {
+    flex: 1;
+    min-height: 500px;
+}
+
+/* ========== DATA TABLE ========== */
+/* Data Table Wrapper */
+#datatable-container {
+    height: 100% !important;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Add to Data Table section */
+#table-container {
+    height: 100% !important;
+    min-height: 500px;
+    overflow: auto;
+}
+
+#datatable-container .dash-table-container {
+    height: 100% !important;
+    max-height: calc(100% - 40px) !important; /* Account for pagination */
+    display: flex;
+    flex-direction: column;
+}
+
+#datatable-container .dash-spreadsheet-container {
+    height: 100% !important;
+    border: 1px solid #7FD1AE !important;
+    border-radius: 4px !important;
+    overflow: hidden !important;
+}
+
+.dash-table-container .dash-spreadsheet-container {
+    height: 100% !important;
+}
+
+/* Table Body Scroll Area */
+.dash-spreadsheet-inner {
+    flex: 1;
+    overflow: auto !important;
+}
+
+
+/* ========== TOOLTIP & PAGINATION ========== */
+.dash-table-tooltip {
+    background-color: #2B3E50 !important;
+    color: white !important;
+    border: 1px solid #7FD1AE !important;
+}
+
+/* Pagination Positioning */
+.dash-table-paging-nav {
+    position: sticky !important;
+    bottom: 0 !important;
+    background-color: #2B3E50 !important;
+    border-top: 1px solid #7FD1AE !important;
+    z-index: 100;
+    padding: 10px !important;
+    margin-top: auto !important;
+    width: 100%;
+}
+
+.dash-page-numbers {
+    color: #7FD1AE !important;
+    margin: 0 15px !important;
+}
+
+.dash-table-paging-nav .previous-next {
+    color: #7FD1AE !important;
+    padding: 0 10px !important;
+    background-color: #4E5D6C !important;
+    border: 1px solid #7FD1AE !important;
+    border-radius: 4px !important;
+}
+
+.dash-table-paging-nav .page-number {
+    margin: 0 8px !important;
+    color: #7FD1AE !important;
+}
+
+
+/* ========== FILTERS COLUMN SCROLLBAR ========== */
+/* Desktop: Remove scrollbar */
+@media (min-width: 992px) {
+    .filters-column .card-body {
+        max-height: none !important;
+        overflow: visible !important;
+    }
+    
+    /* Prevent filters column from shrinking */
+    .filters-column {
+        flex-shrink: 0;
+    }
+}
+
+/* Mobile: Keep scrollbar */
+@media (max-width: 991px) {
+    .flex-grow-1.g-3 {
+        flex-wrap: wrap; /* Allow wrapping on mobile */
+    }
+    
+    .filters-column {
+        flex: 0 0 100% !important; /* Full width on mobile */
+        max-width: 100% !important;
+        min-width: 100% !important;
+        max-height: 50vh;
+        margin-bottom: 15px;
+    }
+    
+    .content-column {
+        min-width: 100% !important;
+        flex: 0 0 100% !important;
+    }
+    
+    .filters-column .card-body {
+        max-height: calc(100vh - 250px);
+        overflow: auto;
+    }
+}
+
+
+/* ========== ZOOM PROTECTION ========== */
+/* Prevent layout breaking on zoom */
+@media (max-width: 2000px) {
+    .flex-grow-1.g-3 {
+        min-width: 780px; /* Minimum width to prevent breaking (280px + 500px) */
+    }
+    
+    .filters-column {
+        flex-basis: 280px !important;
+    }
+    
+    .content-column {
+        min-width: 500px;
+        overflow: auto;
+    }
+}
+
+/* ========== MOBILE RESPONSIVE ========== */
+@media (max-width: 991px) {
+    .dash-graph {
+        height: 50vh !important;
+    }
+    
+    .graph-column {
+        height: 60vh !important;
+        min-height: 60vh !important;
+    }
+
+    #govmap-iframe {
+        min-height: 60vh !important;
+    }
+}
+
+/* Tablet Styles */
+@media (min-width: 768px) and (max-width: 991px) {
+    .filters-column {
+        max-height: 65vh;
+        overflow-y: auto;
+    }
+    
+    .dash-graph {
+        height: 65vh !important;
+    }
+}
+
+/* Phone Styles */
+@media (max-width: 767px) {
+    .filters-column {
+        max-height: 55vh;
+        overflow-y: auto;
+    }
+    
+    .dash-graph {
+        height: 45vh !important;
+    }
+    
+    .card-header {
+        font-size: 1rem !important;
+        padding: 8px 12px !important;
+    }
+    
+    .btn {
+        padding: 6px 10px !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+/* Small Phone Styles */
+@media (max-width: 480px) {
+    .filters-column {
+        max-height: 50vh;
+    }
+    
+    .dash-graph {
+        height: 40vh !important;
+    }
+    
+    .dropdown-menu {
+        max-width: 95vw;
+    }
+}
+
+/* Large Desktop Styles */
+@media (min-width: 1200px) {
+    .filters-column {
+        flex: 0 0 22% !important;
+        max-width: 350px;
+    }
+    
+    .content-column {
+        min-width: calc(100% - 350px);
+    }
+}
+
+/* Ultra-wide Screens */
+@media (min-width: 1600px) {
+    .filters-column {
+        flex: 0 0 18% !important;
+        max-width: 400px;
+    }
+}
+
+/* ========== MAP CONTAINERS ========== */
+#govmap-container, #graph-container {
+    flex: 1;
+    min-height: 500px;
+    position: relative;
+}
+
+#govmap-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
